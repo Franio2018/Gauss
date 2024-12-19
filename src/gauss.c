@@ -17,7 +17,7 @@ int eliminate(Matrix *mat, Matrix *b){
     int n = mat->r;
 
     for (int k = 0; k < n; ++k) {
-        // Find the pivot element
+        
         int maxRow = k;
         for (int i = k + 1; i < n; ++i) {
             if (fabs(mat->data[i][k]) > fabs(mat->data[maxRow][k])) {
@@ -25,7 +25,6 @@ int eliminate(Matrix *mat, Matrix *b){
             }
         }
 
-        // Swap the rows in mat and b
         if (fabs(mat->data[maxRow][k]) < 1e-10) {
             fprintf(stderr, "Matrix is singular or nearly singular.\n");
             return 1;
@@ -41,11 +40,10 @@ int eliminate(Matrix *mat, Matrix *b){
             b->data[maxRow][0] = tempB;
         }
 
-        // Eliminate entries below the pivot
         for (int i = k + 1; i < n; ++i) {
             double factor = mat->data[i][k] / mat->data[k][k];
 
-            mat->data[i][k] = 0.0; // Explicitly set to zero for clarity
+            mat->data[i][k] = 0.0;
 
             for (int j = k + 1; j < n; ++j) {
                 mat->data[i][j] -= factor * mat->data[k][j];
@@ -55,6 +53,6 @@ int eliminate(Matrix *mat, Matrix *b){
         }
     }
 
-    return 0; // Success
+    return 0;
 }
 
